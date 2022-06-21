@@ -1,0 +1,36 @@
+.link{
+    text-decoration: none;
+    color: #000;
+
+    &.activeLink{
+        color: #fff;
+        position: relative;
+
+        &::before, &::after{
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 30px;
+            height:30px;
+            border-radius: 50%;
+        }
+
+        &::before{
+            top: -30px;
+            box-shadow: 15px 15px 0 var(--primary-color);
+        }
+
+        &::after{
+            bottom: -30px;
+            box-shadow: 15px -15px 0 var(--primary-color);
+        }
+
+        .listItem{
+            background: var(--primary-color) !important;
+        }
+
+        .listIcon{
+            color: #fff;
+        }
+    }
+}
