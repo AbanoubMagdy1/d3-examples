@@ -14,13 +14,13 @@ function SideMenuLink ({ path, text, Icon, handleClose }) {
       onClick={handleClose}
       to={path}
       className={({ isActive }) =>
-        clsx('link', isActive && 'activeLink')
+        clsx('navlink', isActive && 'activeLink')
       }
     >
-      <ListItem disablePadding className='listItem'>
+      <ListItem disablePadding className='navlink_item'>
         <ListItemButton>
           <ListItemIcon>
-            <Icon className="listIcon"/>
+            <Icon className="navlink__icon"/>
           </ListItemIcon>
           <ListItemText primary={text} />
         </ListItemButton>

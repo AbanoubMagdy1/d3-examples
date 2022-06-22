@@ -1,35 +1,41 @@
-.link{
+.navlink{
     text-decoration: none;
     color: #000;
+    display: block;
+    margin-left: 1rem;
+    --edge-size: 20px;
 
     &.activeLink{
         color: #fff;
         position: relative;
+        pointer-events: none;
 
         &::before, &::after{
             content: '';
             position: absolute;
             right: 0;
-            width: 30px;
-            height:30px;
+            width: calc(2 * var(--edge-size));
+            height:calc(2 * var(--edge-size));
             border-radius: 50%;
         }
 
         &::before{
-            top: -30px;
-            box-shadow: 15px 15px 0 var(--primary-color);
+            top: calc(-2 * var(--edge-size));
+            box-shadow: calc(var(--edge-size)) calc(var(--edge-size)) 0 var(--primary-color);
         }
 
         &::after{
-            bottom: -30px;
-            box-shadow: 15px -15px 0 var(--primary-color);
+            bottom: calc(-2 * var(--edge-size));
+            box-shadow: calc(var(--edge-size)) calc(var(--edge-size) * -1) 0 var(--primary-color);
         }
 
-        .listItem{
+        .navlink_item{
             background: var(--primary-color) !important;
+            border-top-left-radius: var(--edge-size);
+            border-bottom-left-radius: var(--edge-size);    
         }
 
-        .listIcon{
+        .navlink__icon{
             color: #fff;
         }
     }
