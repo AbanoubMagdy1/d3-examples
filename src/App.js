@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Main, AppBar, DrawerHeader } from './App.style';
 import SideMenu from './components/SideMenu/SideMenu';
-import Face from './components/Face/Face';
+import FaceRoute from './routes/FaceRoute';
 
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Routes, Route } from 'react-router-dom';
+import './App.scss';
 
 
 export default function PersistentDrawerLeft () {
@@ -50,7 +51,7 @@ export default function PersistentDrawerLeft () {
         <DrawerHeader />
         <Routes>
           <Route path="/" element={<h3>Please Select an example from the side menu</h3>}/>
-          <Route path="/face" element={<Face/>}/>
+          <Route path="/face" element={<FaceRoute/>}/>
         </Routes>
       </Main>
     </Box>
