@@ -1,25 +1,42 @@
-import React from 'react';
+import { arc } from 'd3';
+import { useMemo } from 'react';
+// import { arc } from 'd3';
 
+/*
 function mouthPathGenerator (size) {
   const tiny = size / 10;
   return `M${size / 4},${tiny * 7} C${tiny * 4},${tiny * 9} ${tiny * 6},${tiny * 9} ${size / 4 * 3},${tiny * 7}`;
+}*/
+
+function degToRad (deg) {
+  return deg * (Math.PI / 180);
 }
+
 function Face ({ size, strokeWidth, faceColor }) {
+  const eyeXOffset = size / 4.7;
+  const eyeYOffset = size / 5;
+
+  const mouthArc = useMemo(function () {
+    return arc()
+      .innerRadius(size / 4)
+      .outerRadius(size / 4 + strokeWidth)
+      .startAngle(degToRad(110))
+      .endAngle(degToRad(250));
+  }, [size]);
+
   return (
     <svg width={size} height={size}>
-      <g width={size} height={size}>
+      <g transform={`translate(${size / 2},${size / 2})`}>
         <circle
-          cx={size / 2}
-          cy={size / 2}
           r={size / 2 - strokeWidth / 2}
           fill={faceColor}
           stroke="#000"
           strokeWidth={strokeWidth}
         />
 
-        <circle cx={size / 20 * 6} cy={size / 3} r={size / 12} fill="#000"/>
-        <circle cx={size / 20 * 14} cy={size / 3} r={size / 12} fill="#000"/>
-        <path d={mouthPathGenerator(size)} fill='none' stroke='#000' strokeWidth={strokeWidth / 2}/>
+        <circle cx={-eyeXOffset} cy={-eyeYOffset} r={size / 15} fill="#000"/>
+        <circle cx={eyeXOffset} cy={-eyeYOffset} r={size / 15} fill="#000"/>
+        <path d={mouthArc()} />
       </g>
     </svg>
   );
@@ -27,7 +44,7 @@ function Face ({ size, strokeWidth, faceColor }) {
 
 Face.defaultProps = {
   size: 400,
-  strokeWidth: 5,
+  strokeWidth: 15,
   faceColor: '#f7ef4a'
 
 };
