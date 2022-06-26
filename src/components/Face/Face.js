@@ -12,7 +12,7 @@ function degToRad (deg) {
   return deg * (Math.PI / 180);
 }
 
-function Face ({ size, strokeWidth, faceColor }) {
+function Face ({ size, strokeWidth, faceColor, eyeSize }) {
   const eyeXOffset = size / 4.7;
   const eyeYOffset = size / 5;
 
@@ -25,8 +25,9 @@ function Face ({ size, strokeWidth, faceColor }) {
   }, [size]);
 
   return (
-    <svg width={size} height={size}>
+    <svg width={size} height={size} style={{ margin: '5px' }}>
       <g transform={`translate(${size / 2},${size / 2})`}>
+        {/* Background of face*/}
         <circle
           r={size / 2 - strokeWidth / 2}
           fill={faceColor}
@@ -34,8 +35,10 @@ function Face ({ size, strokeWidth, faceColor }) {
           strokeWidth={strokeWidth}
         />
 
-        <circle cx={-eyeXOffset} cy={-eyeYOffset} r={size / 15} fill="#000"/>
-        <circle cx={eyeXOffset} cy={-eyeYOffset} r={size / 15} fill="#000"/>
+        {/* Eyes*/}
+        <circle cx={-eyeXOffset} cy={-eyeYOffset} r={eyeSize} fill="#000"/>
+        <circle cx={eyeXOffset} cy={-eyeYOffset} r={eyeSize} fill="#000"/>
+        {/* Mouth*/}
         <path d={mouthArc()} />
       </g>
     </svg>
@@ -44,6 +47,7 @@ function Face ({ size, strokeWidth, faceColor }) {
 
 Face.defaultProps = {
   size: 400,
+  eyeSize: 20,
   strokeWidth: 15,
   faceColor: '#f7ef4a'
 
