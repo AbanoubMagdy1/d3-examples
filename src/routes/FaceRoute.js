@@ -8,7 +8,8 @@ function FaceRoute () {
     <div className='container'>
       <Typography variant="h4">The face SVG example</Typography>
       <div className='container-row'>
-        {range(4 * 2).map(() => <Face
+        {range(4 * 2).map((idx) => <Face
+          key={idx}
           size={200}
           strokeWidth={Math.random() * 10 + 6}
           eyeSize={5 + Math.random() * 15}

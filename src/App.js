@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Main, AppBar, DrawerHeader } from './App.style';
 import SideMenu from './components/SideMenu/SideMenu';
 import FaceRoute from './routes/FaceRoute';
+import ColorsRoute from './routes/ColorsRoute';
 
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -52,6 +53,7 @@ export default function PersistentDrawerLeft () {
         <Routes>
           <Route path="/" element={<h3>Please Select an example from the side menu</h3>}/>
           <Route path="/face" element={<FaceRoute/>}/>
+          <Route path="/colors" element={<ColorsRoute/>}/>
         </Routes>
       </Main>
     </Box>

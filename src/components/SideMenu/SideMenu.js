@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import FaceIcon from '@mui/icons-material/Face';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 import SideMenuLink from './SideMenuLink';
 
 
@@ -36,6 +37,13 @@ function SideMenu ({ open, handleClose }) {
           path="/face"
           text="Face example"
           Icon={FaceIcon}
+          handleClose={handleClose}
+        />
+
+        <SideMenuLink
+          path="/colors"
+          text="Colors Pie"
+          Icon={ColorLensIcon}
           handleClose={handleClose}
         />
       </List>
