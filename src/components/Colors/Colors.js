@@ -1,28 +1,20 @@
-import { csv, pie, arc } from 'd3';
-import { memo, useEffect, useState } from 'react';
+import { pie, arc } from 'd3';
+import { memo } from 'react';
 import chroma from 'chroma-js';
-
-const colorsUrl = 'https://gist.githubusercontent.com/AbanoubMagdy1/da81a2d3edf91241f4acd0c40aaf33a8/raw/dcfb5396aca1b84b9682443d9d3cd8c75f5612bb/gistfile1.txt';
+import './Colors.scss';
 
 function getTextRotation (data) {
-  const initialAngle = (radToDeg(data.startAngle) + radToDeg(data.endAngle)) / 2 + 90;
-  return initialAngle >= 90 && initialAngle <= 270 ? initialAngle - 180 : initialAngle;
+  const initialAngle = (radToDeg(data.startAngle) + radToDeg(data.endAngle)) / 2 - 90;
+  return initialAngle;
+  // If not rotating use this
+  // return initialAngle >= 90 && initialAngle <= 270 ? initialAngle - 180 : initialAngle;
 }
 
 function radToDeg (rad) {
   return rad * (180 / Math.PI);
 }
 
-function Colors ({ size }) {
-  const [colors, setColors] = useState([]);
-
-  useEffect(function () {
-    csv(colorsUrl).then(setColors);
-  }, []);
-
-  if (colors.length === 0) {
-    return <pre>Loading...</pre>;
-  }
+function Colors ({ size, colors }) {
 
   const colorsPie = pie()
     .value(1);
@@ -37,6 +29,7 @@ function Colors ({ size }) {
     .innerRadius(innerRadius)
     .outerRadius(outerRadius);
 
+
   function createTextTransform (data) {
     const rotationAngle = getTextRotation(data);
     return `translate(${pieArc.centroid(data)}) rotate(${rotationAngle})`;
@@ -44,7 +37,7 @@ function Colors ({ size }) {
 
 
   return (
-    <svg id="colors" width={size} height={size}>
+    <svg className="rotatingPalette" width={size} height={size}>
       <g transform={`translate(${size / 2},${size / 2})`}>
         {colorsPie(colors.slice(0, 30)).map((color) => <g key={color.data.keyword}>
           <path
