@@ -4,6 +4,7 @@ import useFetch from '../hooks/useFetch';
 import { csv } from 'd3';
 import HandleAsync from '../components/HandleAsync/HandleAsync';
 import VerticalBarChart from '../components/BarChart/VerticalBarChart';
+import HorizontalBarChart from '../components/BarChart/HorizontalBarChart';
 
 const populatiosUrl = 'https://gist.githubusercontent.com/curran/6cd1e224d76811b68df4/raw/12c93b2e53872d088331d939bdb790019f06dc32/populationByCountry2015.csv';
 
@@ -24,13 +25,22 @@ function PopulationRoute () {
       </div>
 
       <HandleAsync
-        MainComponent={VerticalBarChart}
         error={error}
         loading={loading}
-        data={data}
-        xField="country"
-        yField="population"
-      />
+      >
+        <VerticalBarChart
+          data={data}
+          xField="country"
+          yField="population"
+        />
+
+        <HorizontalBarChart
+          data={data}
+          xField="population"
+          yField="country"
+        />
+
+      </HandleAsync>
     </div>
   );
 }

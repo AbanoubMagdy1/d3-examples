@@ -26,12 +26,11 @@ function ColorsRoute () {
       </div>
 
       <HandleAsync
-        MainComponent={Colors}
         error={error}
         loading={loading}
-        colors={data}
-        size={800}
-      />
+      >
+        <Colors colors={data} size={800}/>
+      </HandleAsync>
     </div>
   );
 }

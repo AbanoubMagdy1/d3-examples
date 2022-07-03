@@ -1,23 +1,23 @@
 import { max, scaleBand, scaleLinear } from 'd3';
 import { memo } from 'react';
 
-import XAxisStr from '../Axis/XAxisStr';
-import YAxisNum from '../Axis/YAxisNum';
+import XAxisNum from '../Axis/XAxisNum';
+import YAxisStr from '../Axis/YAxisStr';
 
 
 
-function VerticalBarChart ({ data, xField, yField, width, height }) {
+function HorizontalBarChart ({ data, xField, yField, width, height }) {
   const margin = { top: 0, left: 60, bottom: 60, right: 0 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   const barSpacing = 10;
 
-  const xScale = scaleBand()
-    .domain(data.map(record => record[xField]))
+  const xScale = scaleLinear()
+    .domain([0, max(data, record => +record[xField])])
     .range([0, innerWidth]);
 
-  const yScale = scaleLinear()
-    .domain([0, max(data, record => +record[yField])])
+  const yScale = scaleBand()
+    .domain(data.map(record => record[yField]))
     .range([0, innerHeight]);
 
   return (
@@ -28,25 +28,24 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
           stroke='black'
         />
 
-        <YAxisNum
+        <XAxisNum
           width={innerWidth}
-          height={innerHeight}
-          yScale={yScale}
-        />
-
-        <XAxisStr
           height={innerHeight}
           xScale={xScale}
         />
 
+        <YAxisStr
+          yScale={yScale}
+        />
+
         {data.map(data => {
-          const barHeight = yScale(data[yField]);
+          const barWidth = xScale(data[xField]);
           return <rect
             key={data.country}
-            width={xScale.bandwidth() - barSpacing}
-            height={barHeight}
-            x={xScale(data[xField]) + (barSpacing / 2)}
-            y={innerHeight - barHeight}
+            width={barWidth}
+            height={yScale.bandwidth() - barSpacing}
+            x={0}
+            y={yScale(data[yField])}
             fill='#54BAB9'
             opacity={.8}
           />;
@@ -56,9 +55,9 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
   );
 }
 
-VerticalBarChart.defaultProps = {
+HorizontalBarChart.defaultProps = {
   width: 500,
   height: 500
 };
 
-export default memo(VerticalBarChart);
+export default memo(HorizontalBarChart);

@@ -1,7 +1,7 @@
 import Loader from '../Loader/Loader';
 import Message from '../Message/Message';
 
-function HandleAsync ({ MainComponent, error, loading, ...props }) {
+function HandleAsync ({ children, error, loading }) {
   if (loading) {
     return <Loader/>;
   }
@@ -10,7 +10,7 @@ function HandleAsync ({ MainComponent, error, loading, ...props }) {
     return <Message>{error}</Message>;
   }
 
-  return <MainComponent {...props}/>;
+  return children;
 }
 
 export default HandleAsync;
