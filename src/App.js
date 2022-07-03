@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
+import PopulationRoute from './routes/PopulationRoute';
 
 
 export default function PersistentDrawerLeft () {
@@ -54,6 +55,7 @@ export default function PersistentDrawerLeft () {
           <Route path="/" element={<h3>Please Select an example from the side menu</h3>}/>
           <Route path="/face" element={<FaceRoute/>}/>
           <Route path="/colors" element={<ColorsRoute/>}/>
+          <Route path="/population" element={<PopulationRoute/>}/>
         </Routes>
       </Main>
     </Box>
