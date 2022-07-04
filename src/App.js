@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Main, AppBar, DrawerHeader } from './App.style';
 import SideMenu from './components/SideMenu/SideMenu';
-import FaceRoute from './routes/FaceRoute';
-import ColorsRoute from './routes/ColorsRoute';
 
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,8 +9,13 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Routes, Route } from 'react-router-dom';
-import './App.scss';
+
+import FaceRoute from './routes/FaceRoute';
+import ColorsRoute from './routes/ColorsRoute';
 import PopulationRoute from './routes/PopulationRoute';
+import ReligionRoute from './routes/ReligionRoute';
+import './App.scss';
+
 
 
 export default function PersistentDrawerLeft () {
@@ -56,6 +59,7 @@ export default function PersistentDrawerLeft () {
           <Route path="/face" element={<FaceRoute/>}/>
           <Route path="/colors" element={<ColorsRoute/>}/>
           <Route path="/population" element={<PopulationRoute/>}/>
+          <Route path="/religion" element={<ReligionRoute/>}/>
         </Routes>
       </Main>
     </Box>

@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import FaceIcon from '@mui/icons-material/Face';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import GroupsIcon from '@mui/icons-material/Groups';
+import ChurchIcon from '@mui/icons-material/Church';
 import SideMenuLink from './SideMenuLink';
 
 
@@ -52,6 +53,13 @@ function SideMenu ({ open, handleClose }) {
           path="/population"
           text="Population of top 5 countries"
           Icon={GroupsIcon}
+          handleClose={handleClose}
+        />
+
+        <SideMenuLink
+          path="/religion"
+          text="Religion followers"
+          Icon={ChurchIcon}
           handleClose={handleClose}
         />
       </List>

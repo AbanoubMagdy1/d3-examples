@@ -88,7 +88,7 @@
     }],
     "no-unreachable": "error",
     "no-unused-expressions": "off",
-    "no-unused-vars": ["error", {
+    "no-unused-vars": ["warn", {
       "args": "none"
     }],
     "no-use-before-define": "off",
