@@ -1,4 +1,4 @@
-import { max, scaleBand, scaleLinear, scaleOrdinal, schemeCategory10 } from 'd3';
+import { max, scaleBand, scaleLinear, scaleOrdinal, schemePaired } from 'd3';
 import { memo } from 'react';
 
 import StackedBar from './StackedBar';
@@ -7,7 +7,9 @@ import YAxisNum from '../Axis/YAxisNum';
 
 
 
-function StackedBarChart ({ data, xField, yField, colorField, innerYField, width, height }) {
+function StackedBarChart (
+  { data, xField, yField, colorField, innerYField, width, height, tooltipEnter, tooltipLeave }
+) {
   const margin = { top: 0, left: 60, bottom: 60, right: 0 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -21,7 +23,7 @@ function StackedBarChart ({ data, xField, yField, colorField, innerYField, width
     .domain([0, max(data, record => +record[yField])])
     .range([0, innerHeight * .98]);
 
-  const colorScale = scaleOrdinal(schemeCategory10);
+  const colorScale = scaleOrdinal(schemePaired);
 
   return (
     <svg width={width} height={height} >
@@ -42,9 +44,9 @@ function StackedBarChart ({ data, xField, yField, colorField, innerYField, width
           xScale={xScale}
         />
 
-        {data.map(data => {
+        {data.map((data, i) => {
           return <g
-            key={data[xField]}
+            key={i}
             transform={`translate(${xScale(data[xField]) + (barSpacing / 2)} ,0)`}
           >
             <StackedBar
@@ -56,6 +58,8 @@ function StackedBarChart ({ data, xField, yField, colorField, innerYField, width
               data={data}
               colorField={colorField}
               yField={innerYField}
+              tooltipEnter={tooltipEnter}
+              tooltipLeave={tooltipLeave}
             />
           </g>;
         })}
@@ -65,7 +69,7 @@ function StackedBarChart ({ data, xField, yField, colorField, innerYField, width
 }
 
 StackedBarChart.defaultProps = {
-  width: 500,
+  width: 900,
   height: 600
 };
 
