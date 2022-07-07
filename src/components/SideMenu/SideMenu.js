@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import FaceIcon from '@mui/icons-material/Face';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import GroupsIcon from '@mui/icons-material/Groups';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ChurchIcon from '@mui/icons-material/Church';
 import SideMenuLink from './SideMenuLink';
 
@@ -60,6 +61,13 @@ function SideMenu ({ open, handleClose }) {
           path="/religion"
           text="Religion followers"
           Icon={ChurchIcon}
+          handleClose={handleClose}
+        />
+
+        <SideMenuLink
+          path="/cars"
+          text="Cars"
+          Icon={DirectionsCarIcon}
           handleClose={handleClose}
         />
       </List>

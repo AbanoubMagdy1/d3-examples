@@ -45,7 +45,7 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
         {data.map(data => {
           const barHeight = yScale(data[yField]);
           return <rect
-            key={data.country}
+            key={data[xField]}
             width={xScale.bandwidth()}
             height={barHeight}
             x={xScale(data[xField])}

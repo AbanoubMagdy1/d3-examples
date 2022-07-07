@@ -42,7 +42,7 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
         {data.map(data => {
           const barWidth = xScale(data[xField]);
           return <rect
-            key={data.country}
+            key={data[yField]}
             width={barWidth}
             height={yScale.bandwidth()}
             x={0}
