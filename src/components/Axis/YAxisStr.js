@@ -10,6 +10,7 @@ function YAxisStr ({ yScale }) {
   return (
     <>
       {yScaleTicks.map(tickValue => <g
+        className="axis"
         key={tickValue}
         transform={`translate(0, ${yScale(tickValue) + (yScale.bandwidth() / 2)})`}
       >
@@ -18,6 +19,7 @@ function YAxisStr ({ yScale }) {
           stroke="black"
         />
         <text
+          className="label"
           style={{ textAnchor: 'end' }}
           dy=".4rem"
           dx="-.5rem"

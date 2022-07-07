@@ -7,10 +7,9 @@ import YAxisStr from '../Axis/YAxisStr';
 
 
 function HorizontalBarChart ({ data, xField, yField, width, height }) {
-  const margin = { top: 0, left: 60, bottom: 60, right: 0 };
+  const margin = { top: 0, left: 100, bottom: 80, right: 0 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
-  const barSpacing = 10;
 
   const xScale = scaleLinear()
     .domain([0, max(data, record => +record[xField])])
@@ -18,7 +17,8 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
 
   const yScale = scaleBand()
     .domain(data.map(record => record[yField]))
-    .range([0, innerHeight]);
+    .range([0, innerHeight])
+    .paddingInner(.15);
 
   return (
     <svg width={width} height={height} >
@@ -32,6 +32,7 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
           width={innerWidth}
           height={innerHeight}
           xScale={xScale}
+          title={xField}
         />
 
         <YAxisStr
@@ -43,7 +44,7 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
           return <rect
             key={data.country}
             width={barWidth}
-            height={yScale.bandwidth() - barSpacing}
+            height={yScale.bandwidth()}
             x={0}
             y={yScale(data[yField])}
             fill='#54BAB9'
@@ -56,7 +57,7 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
 }
 
 HorizontalBarChart.defaultProps = {
-  width: 500,
+  width: 600,
   height: 500
 };
 
