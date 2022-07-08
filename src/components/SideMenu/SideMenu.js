@@ -10,6 +10,7 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import GroupsIcon from '@mui/icons-material/Groups';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ChurchIcon from '@mui/icons-material/Church';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
 import SideMenuLink from './SideMenuLink';
 
 
@@ -68,6 +69,13 @@ function SideMenu ({ open, handleClose }) {
           path="/cars"
           text="Cars"
           Icon={DirectionsCarIcon}
+          handleClose={handleClose}
+        />
+
+        <SideMenuLink
+          path="/temperature"
+          text="Tempearature"
+          Icon={ThermostatIcon}
           handleClose={handleClose}
         />
       </List>

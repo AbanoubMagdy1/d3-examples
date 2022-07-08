@@ -1,7 +1,7 @@
 import { format } from 'd3';
 import { capitalize } from '../../utils';
 
-function XAxisNum ({ height, width, title, xScale }) {
+function XAxisNum ({ height, width, title, xScale, formatFunc }) {
   const ticks = xScale.ticks(6);
   const xAxisTitleOffset = 70;
 
@@ -28,12 +28,16 @@ function XAxisNum ({ height, width, title, xScale }) {
           textAnchor='middle'
           transform={`translate(0, ${height + 30})`}
         >
-          {format('.2s')(tickValue).replace(/G/, 'B')}
+          {formatFunc(tickValue)}
         </text>
 
       </g>)}
     </g>
   );
 }
+
+XAxisNum.defaultProps = {
+  formatFunc: (val) => format('.2s')(val).replace(/G/, 'B')
+};
 
 export default XAxisNum;

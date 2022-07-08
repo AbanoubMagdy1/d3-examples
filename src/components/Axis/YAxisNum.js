@@ -18,7 +18,7 @@ function YAxisNum ({ width, height, yScale, title }) {
 
       {yScaleTicks.map(tickValue => <g
         key={tickValue}
-        transform={`translate(0, ${height - yScale(tickValue)})`}
+        transform={`translate(0, ${yScale(tickValue)})`}
       >
         <line
           x2={width}

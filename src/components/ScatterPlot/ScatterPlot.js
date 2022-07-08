@@ -16,7 +16,7 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
 
   const yScale = scaleLinear()
     .domain(extent(data, record => +record[yField]))
-    .range([0, innerHeight]);
+    .range([innerHeight, 0]);
 
   return (
     <svg width={width} height={height} >
@@ -53,9 +53,9 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
           }
           return <circle
             key={data.country}
-            r={5}
+            r={7}
             cx={xScale(+data[xField])}
-            cy={innerHeight - yScale(+data[yField])}
+            cy={yScale(+data[yField])}
             fill='#54BAB9'
           >
             <title>{data[labelField]}</title>

@@ -13,15 +13,15 @@ function StackedBarChart (
   const margin = { top: 0, left: 80, bottom: 80, right: 0 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
-  const barSpacing = 10;
 
   const xScale = scaleBand()
     .domain(data.map(record => record[xField]))
-    .range([0, innerWidth]);
+    .range([0, innerWidth])
+    .paddingInner(0.1);
 
   const yScale = scaleLinear()
     .domain([0, max(data, record => +record[yField])])
-    .range([0, innerHeight * .98]);
+    .range([innerHeight, 0]);
 
   const colorScale = scaleOrdinal(schemePaired);
 
@@ -50,13 +50,12 @@ function StackedBarChart (
         {data.map((data, i) => {
           return <g
             key={i}
-            transform={`translate(${xScale(data[xField]) + (barSpacing / 2)} ,0)`}
+            transform={`translate(${xScale(data[xField])} ,0)`}
           >
             <StackedBar
               xScale={xScale}
               yScale={yScale}
               colorScale={colorScale}
-              spacing={barSpacing}
               totalHeight={innerHeight}
               data={data}
               colorField={colorField}

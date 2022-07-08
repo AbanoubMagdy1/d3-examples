@@ -19,7 +19,7 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
 
   const yScale = scaleLinear()
     .domain([0, max(data, record => +record[yField])])
-    .range([0, innerHeight]);
+    .range([innerHeight, 0]);
 
   return (
     <svg width={width} height={height} >
@@ -44,13 +44,13 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
         />
 
         {data.map(data => {
-          const barHeight = yScale(data[yField]);
+          const height = innerHeight - yScale(data[yField]);
           return <rect
             key={data[xField]}
             width={xScale.bandwidth()}
-            height={barHeight}
+            height={height}
             x={xScale(data[xField])}
-            y={innerHeight - barHeight}
+            y={yScale(data[yField])}
             fill='#54BAB9'
             opacity={.8}
           >
