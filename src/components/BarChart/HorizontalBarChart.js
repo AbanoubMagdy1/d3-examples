@@ -1,5 +1,6 @@
 import { max, scaleBand, scaleLinear } from 'd3';
 import { memo } from 'react';
+import { numberWithCommas } from '../../utils';
 
 import XAxisNum from '../Axis/XAxisNum';
 import YAxisStr from '../Axis/YAxisStr';
@@ -36,6 +37,8 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
         />
 
         <YAxisStr
+          height={innerHeight}
+          title={yField}
           yScale={yScale}
         />
 
@@ -49,7 +52,9 @@ function HorizontalBarChart ({ data, xField, yField, width, height }) {
             y={yScale(data[yField])}
             fill='#54BAB9'
             opacity={.8}
-          />;
+          >
+            <title>{numberWithCommas(data[xField])}</title>
+          </rect>;
         })}
       </g>
     </svg>

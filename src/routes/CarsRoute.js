@@ -75,7 +75,7 @@ function CarsRoute () {
           xField={xField}
           yField={yField}
           labelField="name"
-          width={Math.max(400, window.innerWidth * (1 / 2))}
+          width={Math.max(800, window.innerWidth * (3 / 4))}
         />
       </HandleAsync>
     </div>

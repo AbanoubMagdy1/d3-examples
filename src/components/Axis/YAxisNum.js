@@ -8,10 +8,10 @@ function YAxisNum ({ width, height, yScale, title }) {
   return (
     <g className='axis axisY'>
       <text className='title'
-        y={height / 2 + yAxisTitleOffset}
+        y={height / 2 - yAxisTitleOffset}
         textAnchor="middle"
         dominantBaseline="central"
-        transform={`rotate(90, 0, ${height / 2})`}
+        transform={`rotate(-90, 0, ${height / 2})`}
       >
         {capitalize(title)}
       </text>

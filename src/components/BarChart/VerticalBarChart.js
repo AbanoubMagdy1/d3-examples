@@ -1,5 +1,6 @@
 import { max, scaleBand, scaleLinear } from 'd3';
 import { memo } from 'react';
+import { numberWithCommas } from '../../utils';
 
 import XAxisStr from '../Axis/XAxisStr';
 import YAxisNum from '../Axis/YAxisNum';
@@ -52,7 +53,9 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
             y={innerHeight - barHeight}
             fill='#54BAB9'
             opacity={.8}
-          />;
+          >
+            <title>{numberWithCommas(data[yField])}</title>
+          </rect>;
         })}
       </g>
     </svg>

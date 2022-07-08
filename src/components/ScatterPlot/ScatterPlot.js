@@ -1,10 +1,8 @@
-import { max, min, scaleLinear } from 'd3';
+import { extent, scaleLinear } from 'd3';
 import { memo } from 'react';
 
 import XAxisNum from '../Axis/XAxisNum';
 import YAxisNum from '../Axis/YAxisNum';
-
-
 
 function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
   const margin = { top: 10, left: 100, bottom: 80, right: 10 };
@@ -12,15 +10,12 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
   const innerHeight = height - margin.top - margin.bottom;
 
   const xScale = scaleLinear()
-    .domain([
-      min(data, record => +record[xField]),
-      max(data, record => +record[xField])])
-    .range([0, innerWidth]);
+    .domain(extent(data, record => +record[xField]))
+    .range([0, innerWidth])
+    .nice();
 
   const yScale = scaleLinear()
-    .domain([
-      min(data, record => +record[yField]),
-      max(data, record => +record[yField])])
+    .domain(extent(data, record => +record[yField]))
     .range([0, innerHeight]);
 
   return (

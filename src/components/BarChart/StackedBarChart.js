@@ -10,7 +10,7 @@ import YAxisNum from '../Axis/YAxisNum';
 function StackedBarChart (
   { data, xField, yField, colorField, innerYField, width, height, tooltipEnter, tooltipLeave }
 ) {
-  const margin = { top: 0, left: 60, bottom: 60, right: 0 };
+  const margin = { top: 0, left: 80, bottom: 80, right: 0 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   const barSpacing = 10;
@@ -37,11 +37,14 @@ function StackedBarChart (
           width={innerWidth}
           height={innerHeight}
           yScale={yScale}
+          title={yField}
         />
 
         <XAxisStr
           height={innerHeight}
+          width={innerWidth}
           xScale={xScale}
+          title={xField}
         />
 
         {data.map((data, i) => {
