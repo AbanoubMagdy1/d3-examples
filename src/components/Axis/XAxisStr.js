@@ -1,10 +1,4 @@
-import { capitalize } from '../../utils';
-
-function truncate (str, max = 8) {
-  return str.length <= max ?
-    str :
-    str.slice(0, 8) + '.'.repeat(Math.min(3, str.length - 8));
-}
+import { capitalize, truncate } from '../../utils';
 
 function XAxisStr ({ height, width, xScale, title }) {
   const ticks = xScale.domain();

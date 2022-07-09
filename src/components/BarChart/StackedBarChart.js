@@ -1,16 +1,26 @@
 import { max, scaleBand, scaleLinear, scaleOrdinal, schemePaired } from 'd3';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import StackedBar from './StackedBar';
+import ColorLegend from '../Legend/ColorLegend';
 import XAxisStr from '../Axis/XAxisStr';
 import YAxisNum from '../Axis/YAxisNum';
 
-
-
 function StackedBarChart (
-  { data, xField, yField, colorField, innerYField, width, height, tooltipEnter, tooltipLeave }
+  {
+    data,
+    xField,
+    yField,
+    colorField,
+    innerYField,
+    width,
+    height,
+    tooltipEnter,
+    tooltipLeave }
 ) {
-  const margin = { top: 0, left: 80, bottom: 80, right: 0 };
+  const [hoveredVal, setHoveredVal] = useState('');
+
+  const margin = { top: 10, left: 80, bottom: 80, right: 200 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -53,6 +63,7 @@ function StackedBarChart (
             transform={`translate(${xScale(data[xField])} ,0)`}
           >
             <StackedBar
+              hoveredVal={hoveredVal}
               xScale={xScale}
               yScale={yScale}
               colorScale={colorScale}
@@ -65,6 +76,13 @@ function StackedBarChart (
             />
           </g>;
         })}
+
+        <ColorLegend
+          colorScale={colorScale}
+          title={colorField}
+          width={innerWidth}
+          setHoveredVal={setHoveredVal}
+        />
       </g>
     </svg>
   );

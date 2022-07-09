@@ -9,7 +9,9 @@ function StackedBar (
     yField,
     colorField,
     tooltipEnter,
-    tooltipLeave }
+    tooltipLeave,
+    hoveredVal
+  }
 ) {
   let prevVal = 0;
   let curVal = 0;
@@ -28,6 +30,7 @@ function StackedBar (
           fill={colorScale(obj[colorField])}
           onMouseEnter={() => tooltipEnter(obj[colorField], obj[yField])}
           onMouseLeave={tooltipLeave}
+          opacity={hoveredVal === '' || hoveredVal === obj[colorField] ? 1 : .1}
         />;
       })}
     </>

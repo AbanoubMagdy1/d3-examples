@@ -11,6 +11,12 @@ export function capitalize (str) {
   return str[0].toUpperCase() + str.substring(1);
 }
 
+export function truncate (str, max = 8) {
+  return str.length <= max ?
+    str :
+    str.slice(0, 8) + '.'.repeat(Math.min(3, str.length - 8));
+}
+
 export function numberWithCommas (num) {
   if (!num) {
     return 0;
