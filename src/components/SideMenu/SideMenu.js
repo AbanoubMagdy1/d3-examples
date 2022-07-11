@@ -11,6 +11,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ChurchIcon from '@mui/icons-material/Church';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
+import MapIcon from '@mui/icons-material/Map';
 import SideMenuLink from './SideMenuLink';
 
 
@@ -76,6 +77,13 @@ function SideMenu ({ open, handleClose }) {
           path="/temperature"
           text="Tempearature"
           Icon={ThermostatIcon}
+          handleClose={handleClose}
+        />
+
+        <SideMenuLink
+          path="/world-map"
+          text="World map"
+          Icon={MapIcon}
           handleClose={handleClose}
         />
       </List>

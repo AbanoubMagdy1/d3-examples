@@ -16,6 +16,7 @@ import PopulationRoute from './routes/PopulationRoute';
 import ReligionRoute from './routes/ReligionRoute';
 import CarsRoute from './routes/CarsRoute';
 import TemperatureRoute from './routes/TemperatureRoute';
+import WorldMapRoute from './routes/WorldMapRoute';
 import './App.scss';
 
 
@@ -64,6 +65,7 @@ export default function PersistentDrawerLeft () {
           <Route path="/religion" element={<ReligionRoute/>}/>
           <Route path="/cars" element={<CarsRoute/>}/>
           <Route path="/temperature" element={<TemperatureRoute/>}/>
+          <Route path="/world-map" element={<WorldMapRoute/>}/>
         </Routes>
       </Main>
     </Box>
