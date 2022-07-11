@@ -81,6 +81,7 @@ function StackedBarChart (
           colorScale={colorScale}
           title={colorField}
           width={innerWidth}
+          hoveredVal={hoveredVal}
           setHoveredVal={setHoveredVal}
         />
       </g>

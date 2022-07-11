@@ -6,6 +6,7 @@ function ColorLegend ({
   tickHeight = 30,
   legendXOffSet = 50,
   legendYOffSet = 10,
+  hoveredVal,
   setHoveredVal,
   title,
   width
@@ -22,6 +23,8 @@ function ColorLegend ({
         transform={`translate(0, ${tickHeight * (i + 1)})`}
         onMouseEnter={setHoveredVal.bind(this, tick)}
         onMouseOut={setHoveredVal.bind(this, '')}
+        opacity={hoveredVal && hoveredVal !== tick ? .2 : 1}
+
       >
         <circle
           r={tickSize}
