@@ -1,9 +1,9 @@
 import { geoPath, geoEqualEarth, geoGraticule } from 'd3';
 import { memo } from 'react';
 
-
 function WorldMap ({
-  data,
+  worldMap,
+  projection,
   width,
   height,
   countryColor,
@@ -11,14 +11,16 @@ function WorldMap ({
   worldColor,
   children
 }) {
-  const projection = geoEqualEarth();
-  const graticule = geoGraticule();
-  const path = geoPath(projection);
 
-  const { countries, boundaries } = data;
+  const projectionFunc = projection || geoEqualEarth();
+  const graticule = geoGraticule();
+
+  const path = geoPath(projectionFunc);
+
+  const { countries, boundaries } = worldMap;
 
   return (
-    <svg width={width} height={height} >
+    <svg width={width} height={height}>
       <g>
         <path
           d={path({ type: 'Sphere' })}
@@ -48,11 +50,35 @@ function WorldMap ({
 }
 
 WorldMap.defaultProps = {
-  width: 1000,
-  height: 700,
+  width: 960,
+  height: 500,
   countryColor: '#156b60',
   borderColor: 'white',
   worldColor: '#8fbaf2'
 };
+
+export function withWorldMap (Component, projection) {
+  return function Wrapped ({ worldMap,
+    width,
+    height,
+    countryColor,
+    borderColor,
+    worldColor,
+    children,
+    ...props }) {
+    return <WorldMap
+      worldMap={worldMap}
+      width={width}
+      height={height}
+      projection={projection}
+      countryColor={countryColor}
+      borderColor={borderColor}
+      worldColor={worldColor}
+      children={children}
+    >
+      <Component {...props}/>
+    </WorldMap>;
+  };
+}
 
 export default memo(WorldMap);
