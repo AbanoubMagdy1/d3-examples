@@ -6,9 +6,11 @@ import { numberWithCommas } from '../../utils';
 import XAxisStr from '../Axis/XAxisStr';
 import YAxisNum from '../Axis/YAxisNum';
 
-const trans = transition()
-  .duration(1000)
-  .ease(easeExpIn);
+function getTransition () {
+  return transition()
+    .duration(1000)
+    .ease(easeExpIn);
+}
 
 function VerticalBarChart ({ data, xField, yField, width, height }) {
   const svgRef = useRef();
@@ -37,7 +39,7 @@ function VerticalBarChart ({ data, xField, yField, width, height }) {
       .attr('y', pipe(prop(yField), yScale))
       .attr('fill', '#54BAB9');
 
-    rects.transition(trans)
+    rects.transition(getTransition())
       .attr('height', pipe(prop(yField), yScale, subtract(innerHeight)));
     rects.append('title')
       .text(pipe(prop(yField), numberWithCommas));

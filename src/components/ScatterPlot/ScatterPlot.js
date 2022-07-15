@@ -1,5 +1,5 @@
-import { easeCubicOut, transition, extent, scaleLinear, select } from 'd3';
-import { pipe, prop } from 'ramda';
+import { easeCubicOut, transition, extent, scaleLinear, select, easeLinear } from 'd3';
+import { both, not, pipe, prop } from 'ramda';
 import { memo, useEffect, useRef } from 'react';
 
 import XAxisNum from '../Axis/XAxisNum';
@@ -18,6 +18,13 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
+  function filterData (data) {
+    return data.filter(both(
+      pipe(prop(xField), isNaN, not),
+      pipe(prop(yField), isNaN, not)
+    ));
+  }
+
   const xScale = scaleLinear()
     .domain(extent(data, record => +record[xField]))
     .range([0, innerWidth])
@@ -31,7 +38,7 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
     const circlesUpdate = select(svgRef.current)
       .select('g')
       .selectAll('circle')
-      .data(data)
+      .data(filterData(data))
       .call(update => update.transition(getTransition(easeCubicOut, 1000))
         .attr('cx', pipe(prop(xField), Number, xScale))
         .attr('cy', pipe(prop(yField), Number, yScale))
@@ -44,7 +51,15 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
       .attr('fill', '#54BAB9')
       .call(enter => enter.transition(getTransition(easeCubicOut, 2000))
         .attr('cx', pipe(prop(xField), Number, xScale))
-        .attr('cy', pipe(prop(yField), Number, yScale)));
+        .attr('cy', pipe(prop(yField), Number, yScale)))
+      .append('title')
+      .text(prop(labelField));
+
+    const circleExit = circlesUpdate.exit()
+      .call(exit => exit.transition(getTransition(easeLinear, 1000))
+        .attr('cy', innerHeight + 50)
+        .remove());
+
 
   }, [xField, yField]);
   /*
