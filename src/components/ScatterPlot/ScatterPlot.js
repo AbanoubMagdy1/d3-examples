@@ -51,13 +51,16 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
       .attr('fill', '#54BAB9')
       .call(enter => enter.transition(getTransition(easeCubicOut, 2000))
         .attr('cx', pipe(prop(xField), Number, xScale))
-        .attr('cy', pipe(prop(yField), Number, yScale)))
+        .attr('cy', pipe(prop(yField), Number, yScale))
+        .delay((obj, i) => i * 10)
+      )
       .append('title')
       .text(prop(labelField));
 
     const circleExit = circlesUpdate.exit()
       .call(exit => exit.transition(getTransition(easeLinear, 1000))
         .attr('cy', innerHeight + 50)
+        .style('opacity', 0)
         .remove());
 
 
