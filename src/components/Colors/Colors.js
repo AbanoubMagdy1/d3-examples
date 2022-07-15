@@ -46,6 +46,7 @@ function Colors ({ size, colors }) {
           />
           <text
             textAnchor='middle'
+            alignmentBaseline='middle'
             fill={chroma(color.data.hex).luminance() < .7 ? '#fff' : '#000'}
             fontSize={30}
             transform={createTextTransform(color)}

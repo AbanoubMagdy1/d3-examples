@@ -1,10 +1,19 @@
-import { extent, scaleLinear } from 'd3';
-import { memo } from 'react';
+import { easeCubicOut, transition, extent, scaleLinear, select } from 'd3';
+import { pipe, prop } from 'ramda';
+import { memo, useEffect, useRef } from 'react';
 
 import XAxisNum from '../Axis/XAxisNum';
 import YAxisNum from '../Axis/YAxisNum';
 
+function getTransition (type, duration) {
+  return transition()
+    .duration(duration)
+    .ease(type);
+}
+
+
 function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
+  const svgRef = useRef();
   const margin = { top: 10, left: 100, bottom: 80, right: 10 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -18,8 +27,44 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
     .domain(extent(data, record => +record[yField]))
     .range([innerHeight, 0]);
 
+  useEffect(() => {
+    const circlesUpdate = select(svgRef.current)
+      .select('g')
+      .selectAll('circle')
+      .data(data)
+      .call(update => update.transition(getTransition(easeCubicOut, 1000))
+        .attr('cx', pipe(prop(xField), Number, xScale))
+        .attr('cy', pipe(prop(yField), Number, yScale))
+      );
+
+    const circleEnter = circlesUpdate
+      .enter()
+      .append('circle')
+      .attr('r', 7)
+      .attr('fill', '#54BAB9')
+      .call(enter => enter.transition(getTransition(easeCubicOut, 2000))
+        .attr('cx', pipe(prop(xField), Number, xScale))
+        .attr('cy', pipe(prop(yField), Number, yScale)));
+
+  }, [xField, yField]);
+  /*
+{data.map(data => {
+          if (isNaN(+data[yField])) {
+            return null;
+          }
+          return <circle
+            key={data.country}
+            r={7}
+            cx={xScale(+data[xField])}
+            cy={yScale(+data[yField])}
+            fill='#54BAB9'
+          >
+            <title>{data[labelField]}</title>
+          </circle>;
+        })}
+*/
   return (
-    <svg width={width} height={height} >
+    <svg width={width} height={height} ref={svgRef}>
       <g transform={`translate(${margin.left},${margin.top})`}>
         <line
           y2={innerHeight}
@@ -47,20 +92,7 @@ function ScatterPlot ({ data, xField, yField, labelField, width, height }) {
           title={yField}
         />
 
-        {data.map(data => {
-          if (isNaN(+data[yField])) {
-            return null;
-          }
-          return <circle
-            key={data.country}
-            r={7}
-            cx={xScale(+data[xField])}
-            cy={yScale(+data[yField])}
-            fill='#54BAB9'
-          >
-            <title>{data[labelField]}</title>
-          </circle>;
-        })}
+
       </g>
     </svg>
   );
