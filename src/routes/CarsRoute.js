@@ -13,7 +13,7 @@ async function getCars () {
   return cars.slice(0, 100);
 }
 
-const fields = ['mpg', 'cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model_year'];
+const fields = ['mpg', 'displacement', 'horsepower', 'weight', 'acceleration', 'model_year'];
 
 
 function CarsRoute () {
@@ -75,6 +75,7 @@ function CarsRoute () {
           xField={xField}
           yField={yField}
           labelField="name"
+          colorField="cylinders"
           width={Math.max(800, window.innerWidth * (3 / 4))}
         />
       </HandleAsync>
