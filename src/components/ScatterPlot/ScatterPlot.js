@@ -1,5 +1,5 @@
 import { easeCubicOut, transition, extent, scaleLinear, scaleOrdinal, schemeCategory10, select, easeLinear, sort } from 'd3';
-import { both, not, pipe, pluck, prop, uniq } from 'ramda';
+import { both, identity, not, pipe, pluck, prop, subtract, uniq } from 'ramda';
 import { useState, memo, useEffect, useRef } from 'react';
 
 import XAxisNum from '../Axis/XAxisNum';
@@ -28,13 +28,6 @@ function ScatterPlot ({
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  function filterData (data) {
-    return data.filter(both(
-      pipe(prop(xField), isNaN, not),
-      pipe(prop(yField), isNaN, not)
-    ));
-  }
-
   const xScale = scaleLinear()
     .domain(extent(data, record => +record[xField]))
     .range([0, innerWidth])
@@ -45,7 +38,12 @@ function ScatterPlot ({
     .range([innerHeight, 0]);
 
   const colorScale = scaleOrdinal()
-    .domain(pipe(pluck(colorField), uniq)(data))
+    .domain(colorField ?
+      pipe(
+        pluck(colorField),
+        uniq,
+        sort)(data) :
+      [])
     .range(schemeCategory10)
   ;
 
@@ -53,9 +51,8 @@ function ScatterPlot ({
     const circlesUpdate = select(svgRef.current)
       .select('.main')
       .selectAll('.main > circle')
-      .data(filterData(data))
-      .style('opacity', obj =>
-        !colorField || !hoveredVal || hoveredVal === obj[colorField] ? 1 : .2)
+      .data(data)
+      .style('opacity', obj => !colorField || !hoveredVal || hoveredVal === obj[colorField] ? 1 : .2)
       .call(update => update.transition(getTransition(easeCubicOut, 1000))
         .attr('cx', pipe(prop(xField), Number, xScale))
         .attr('cy', pipe(prop(yField), Number, yScale))
